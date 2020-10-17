@@ -8,6 +8,7 @@ using Moq;
 
 namespace Tests
 {
+    [TestClass]
     public class BaseTest
     {
         private static IMapper mapper;
@@ -15,7 +16,7 @@ namespace Tests
         private static DatabaseContextFake fakes;
 
         [AssemblyInitialize]
-        public void Setup()
+        public static void Setup(TestContext tc)
         {
             //build startup pipeline for test
             var webHost = Microsoft.AspNetCore.WebHost.CreateDefaultBuilder()

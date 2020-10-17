@@ -9,7 +9,7 @@ namespace Tests
         public medikeepContext GetDatabaseItemContext()
         {
             var options = new DbContextOptionsBuilder<medikeepContext>()
-                .UseSqlite("filename: test.db")
+                .UseSqlite("Filename= test.db")
                 .Options;
             var databaseContext = new medikeepContext(options);
             databaseContext.Database.EnsureCreated();

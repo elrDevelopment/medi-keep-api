@@ -14,6 +14,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using Services;
 
 namespace MediKeeperPricing
 {
@@ -58,8 +59,11 @@ namespace MediKeeperPricing
             //Database connection
             services.AddDbContext<medikeepContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("mkdb")));
-        }
 
+            services.AddScoped<IItemService, ItemService>();
+            services.AddScoped<ItemValidator, ItemValidator>();
+        }
+    
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {

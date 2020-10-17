@@ -1,39 +1,30 @@
 using System;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Data.Common;
+using AutoMapper;
 using DataAccess;
 using Microsoft.Data.Sqlite;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Test.Fakes;
+using Services;
+
 
 namespace Tests
 {
     [TestClass]
-    public class ServicesTests: FakeContext, IDisposable
+    public class ServicesTests
     {
-        private readonly DbConnection _connection;
-        
-        public ServicesTests()        : base(
-            new DbContextOptionsBuilder<medikeepContext>()
-                .UseSqlite(CreateInMemoryDatabase())
-                .Options)
+        private IMapper mapper;
+        private medikeepContext context;
+        private ItemService service;
+
+        [TestInitialize]
+        public void Setup()
         {
-            _connection = RelationalOptionsExtension.Extract(ContextOptions).Connection;
+            mapper = BaseTest.GetMapper();
+            context = BaseTest.GetFakeContext().GetDatabaseItemContext();
         }
-
-       
-        private static DbConnection CreateInMemoryDatabase()
-        {
-            var connection = new SqliteConnection("Filename=:memory:");
-
-            connection.Open();
-            
-            return connection;
-        }
-
-        public void Dispose() => _connection.Dispose();
         
         
         [TestMethod]
@@ -55,7 +46,7 @@ namespace Tests
         [TestMethod]
         public void Services_should_be_able_to_add_an_item()
         {
-            _connection
+            Assert.IsTrue(true);
         }
         
     }

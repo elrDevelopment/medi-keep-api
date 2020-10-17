@@ -6,7 +6,7 @@ namespace Tests
 {
     public class DatabaseContextFake
     {
-        public medikeepContext GetDatabaseCustomerContext()
+        public medikeepContext GetDatabaseItemContext()
         {
             var options = new DbContextOptionsBuilder<medikeepContext>()
                 .UseSqlite("filename: test.db")
@@ -30,6 +30,8 @@ namespace Tests
                 new Item() {Id=6,ItemName="ITEM 4",Cost=40},
                 new Item() {Id=7,ItemName="ITEM 2",Cost=200},
             };
+
+            return items;
         }
     }
 }

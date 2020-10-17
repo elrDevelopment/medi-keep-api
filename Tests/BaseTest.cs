@@ -12,7 +12,7 @@ namespace Tests
     {
         private static IMapper mapper;
         private static medikeepContext dbContext;
-        
+        private static DatabaseContextFake fakes;
 
         [AssemblyInitialize]
         public void Setup()
@@ -23,23 +23,15 @@ namespace Tests
             mapper = webHost.Services.GetService(typeof(IMapper)) as IMapper;
             //seed data for item entity
             
-            dbContext = new DatabaseContextFake().GetDatabaseCustomerContext();
-            
+            fakes = new DatabaseContextFake();
             
         }
-      
-        
+
         public static IMapper GetMapper()
         {
             return mapper;
         }
-
- 
-
-        public static medikeepContext GetDbContext()
-        {
-            return dbContext;
-        }
+        
 
         public static DatabaseContextFake GetFakeContext()
         {

@@ -57,7 +57,9 @@ namespace Tests
             //arrange
             var item = new ItemDTO()
             {
-                Id = 0, Cost = 4000, ItemName = "Item40"
+                Id = 0, Cost = 4000, ItemName = "Item40", IsDeleted = false,
+                LastModifiedOn = DateTime.Now, ItemCategory = "products", 
+                ItemDescription = "New Item" 
             };
             //act
             var createReturn = service.CreateItem(item);

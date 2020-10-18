@@ -154,7 +154,7 @@ namespace Tests
             var maxCostForSelectedItem = service.GetMaxCostForItemName("ITEM 1");
             
             //assert
-            Assert.AreEqual(250, maxCostForSelectedItem);
+            Assert.AreEqual(4000, maxCostForSelectedItem);
         }
         
         [TestMethod]

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using AutoMapper;
 using DataAccess;
@@ -39,28 +40,59 @@ namespace Services
             throw new NullReferenceException();
         }
 
+        public bool UpdateItem(ItemDTO itemToUpdate)
+        {
+            _validator.ValidateAndThrow(itemToUpdate);
+            var item = _context.Item.FirstOrDefault(f => f.Id == itemToUpdate.Id);
+            if (item != null)
+            {
+
+                var update = _mapper.Map(itemToUpdate, item);
+                _context.Update(item);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
         public ItemDTO GetItemById(int id)
         {
             var item = _context.Item.FirstOrDefault(w => w.Id == id);
             return _mapper.Map<ItemDTO>(item);
         }
 
-        public ItemDTO GetItemByName(string name)
+        public ICollection<ItemDTO> GetAllItemByName(string name)
         {
-            var item = _context.Item.FirstOrDefault(w => w.ItemName == name);
-            return _mapper.Map<ItemDTO>(item); 
+            var itemList = _context.Item.Where(w => w.ItemName == name).ToList();
+            return _mapper.Map<ICollection<ItemDTO>>(itemList); 
         }
         
         public ICollection<ItemDTO> GetAllItems()
         {
             var itemList = _context.Item.ToList();
-            return _mapper.Map<IList<ItemDTO>>(itemList);
+            return _mapper.Map<ICollection<ItemDTO>>(itemList);
         }
-        public ICollection<ItemDTO> GetAllItemsOfName(string name)
+
+        public decimal? GetMaxCostForItemName(string itemName)
         {
-            var itemList = _context.Item
-                .Where(w=>w.ItemName == name).ToList();
-            return _mapper.Map<IList<ItemDTO>>(itemList);
+
+            var allCostForItem = _context.Item
+                .Where(w => w.ItemName == itemName).Select(s => s.Cost).ToList();
+            return allCostForItem.Max();
         }
+        public List<ItemMaxCost> GetMaxCostForItems()
+        {
+
+            var maxCostForItem = _context.Item.ToList().GroupBy(g => g.ItemName)
+                .Select(s => new ItemMaxCost()
+                {
+                    ItemName = s.Key,
+                    MaxCost = s.Max(x=>x.Cost)
+            
+                }).ToList();
+
+            return maxCostForItem;
+        }
+        //TODO DELETE and Test
     }
 }

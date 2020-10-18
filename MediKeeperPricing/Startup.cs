@@ -42,11 +42,7 @@ namespace MediKeeperPricing
                     });
             });
             
-            var apiInfo = new OpenApiInfo() { Title = "Material-Pricing-API", Version = "v1" };
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("Material-Pricing-API", apiInfo);
-            });
+            ConfigureSwagger(services);
             
             // setup AutoMapper
             var mappingConfig = new MapperConfiguration(mc =>
@@ -63,10 +59,25 @@ namespace MediKeeperPricing
             services.AddScoped<IItemService, ItemService>();
             services.AddScoped<ItemValidator, ItemValidator>();
         }
-    
+        private static void ConfigureSwagger(IServiceCollection services)
+        {
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "MediKeeper Material Pricing API", Version = "v1" });
+                c.CustomSchemaIds(x => x.FullName);
+            });
+        }
+        
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "MediKeeper Material Pricing API");
+
+
+            });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

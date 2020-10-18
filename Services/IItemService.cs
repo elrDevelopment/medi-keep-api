@@ -8,8 +8,11 @@ namespace Services
     {
         ICollection<ItemDTO> CreateItem(ItemDTO newItem);
         ItemDTO GetItemById(int id);
-        ItemDTO GetItemByName(string name);
+        ICollection<ItemDTO> GetAllItemByName(string name);
         ICollection<ItemDTO> GetAllItems();
-        ICollection<ItemDTO> GetAllItemsOfName(string name);
+        decimal? GetMaxCostForItemName(string itemName);
+        List<ItemMaxCost> GetMaxCostForItems();
+        bool UpdateItem(ItemDTO itemToUpdate);
+
     }
 }

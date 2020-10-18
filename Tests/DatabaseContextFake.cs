@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 using DataAccess;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,6 +8,7 @@ namespace Tests
 {
     public class DatabaseContextFake
     {
+        
         public medikeepContext GetDatabaseItemContext()
         {
             var options = new DbContextOptionsBuilder<medikeepContext>()
@@ -13,11 +16,13 @@ namespace Tests
                 .Options;
             var databaseContext = new medikeepContext(options);
             databaseContext.Database.EnsureCreated();
+           
             //seeding
             databaseContext.AddRange(GetMockData());
-            return databaseContext;
+            return  databaseContext;
         }
 
+  
         public List<Item> GetMockData()
         {
             var items = new List<Item>()
@@ -33,5 +38,7 @@ namespace Tests
 
             return items;
         }
+
+ 
     }
 }

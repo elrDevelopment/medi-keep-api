@@ -7,7 +7,6 @@ using Services;
 namespace MediKeeperPricing.Controllers
 {
     [ApiController]
-    [EnableCors]
     [Route("api/item")]
     public class ItemController : Controller
     {

@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Models;
 using Services;
@@ -6,7 +7,7 @@ using Services;
 namespace MediKeeperPricing.Controllers
 {
     [ApiController]
-    [AllowAnonymous]
+    [EnableCors]
     [Route("api/item")]
     public class ItemController : Controller
     {

@@ -13,6 +13,7 @@ namespace Services
         decimal? GetMaxCostForItemName(string itemName);
         List<ItemMaxCost> GetMaxCostForItems();
         bool UpdateItem(ItemDTO itemToUpdate);
+        bool DeleteItem(int itemId);
 
     }
 }

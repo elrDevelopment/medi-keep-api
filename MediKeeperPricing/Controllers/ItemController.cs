@@ -37,6 +37,14 @@ namespace MediKeeperPricing.Controllers
             var result = _service.UpdateItem(dto);
             return Ok(result);
         }
+
+        [HttpDelete]
+        [Route("{id}")]
+        public IActionResult DeleteItem(int id)
+        {
+            var result = _service.DeleteItem(id);
+            return Ok(result);
+        }
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetItemById(int id)
@@ -66,7 +74,8 @@ namespace MediKeeperPricing.Controllers
             var result = _service.GetMaxCostForItems();
             return Ok(result);
         }
-
+        
+        
         
     }
 }

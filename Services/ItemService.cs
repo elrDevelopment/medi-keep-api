@@ -93,6 +93,19 @@ namespace Services
 
             return maxCostForItem;
         }
+
+        public bool DeleteItem(int itemId)
+        {
+            var item = _context.Item.Find(itemId);
+            if (item != null)
+            {
+                _context.Item.Remove(item);
+                _context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
         //TODO DELETE and Test
     }
 }

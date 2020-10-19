@@ -11,6 +11,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Models;
 using Moq;
 using Services;
+using SQLitePCL;
 
 
 namespace Tests
@@ -169,6 +170,27 @@ namespace Tests
             var itemOne = maxCostForSelectedItem.Where(w => w.ItemName == "ITEM 1").First();
             //assert
             Assert.AreEqual(4000, itemOne.MaxCost);
+        }
+
+        [TestMethod]
+
+        public void ItemService_should_be_able_to_delete_an_item()
+        {
+            //arrange
+            var item = new ItemDTO()
+            {
+                Id = 0, Cost = 4000, ItemName = "Item40", IsDeleted = false,
+                LastModifiedOn = DateTime.Now, ItemCategory = "products", 
+                ItemDescription = "New Item" 
+            };
+            var createReturn = service.CreateItem(item);
+            var createdId = createReturn.Max(i => i.Id);
+            //act
+            var result = service.DeleteItem(createdId);
+            var itemDeleted = context.Item.Find(createdId);
+
+            //assert
+            Assert.IsNull(itemDeleted);
         }
 
         

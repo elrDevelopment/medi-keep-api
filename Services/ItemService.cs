@@ -32,6 +32,8 @@ namespace Services
             var mappedItem = _mapper.Map<Item>(newItem);
             if (mappedItem != null)
             {
+                mappedItem.IsDeleted = false;
+                mappedItem.LastModifiedOn = DateTime.Now;
                 _context.Item.Add(mappedItem);
                 _context.SaveChanges();
                 return GetAllItems();
@@ -46,8 +48,9 @@ namespace Services
             var item = _context.Item.FirstOrDefault(f => f.Id == itemToUpdate.Id);
             if (item != null)
             {
-
+                
                 var update = _mapper.Map(itemToUpdate, item);
+                item.LastModifiedOn = DateTime.Now;
                 _context.Update(item);
                 _context.SaveChanges();
                 return true;

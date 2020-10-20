@@ -38,6 +38,8 @@ namespace DataAccess
                     .HasColumnType("money")
                     .HasDefaultValueSql("((0.0))");
 
+                entity.Property(e => e.ImageSrcUrl).HasMaxLength(2000);
+
                 entity.Property(e => e.IsDeleted).HasColumnName("isDeleted");
 
                 entity.Property(e => e.ItemCategory).HasMaxLength(15);

@@ -11,6 +11,7 @@ namespace Models
         public string ItemCategory { get; set; }
         public bool? IsDeleted { get; set; }
         public DateTime? LastModifiedOn { get; set; }
+        public string ImageSrcUrl { get; set; }
 
     }
 }

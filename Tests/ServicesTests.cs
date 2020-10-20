@@ -180,8 +180,8 @@ namespace Tests
             var item = new ItemDTO()
             {
                 Id = 0, Cost = 4000, ItemName = "Item40", IsDeleted = false,
-                LastModifiedOn = DateTime.Now, ItemCategory = "products", 
-                ItemDescription = "New Item" 
+                LastModifiedOn = DateTime.Now, ItemCategory = "products",
+                ItemDescription = "New Item", ImageSrcUrl = "https://via.placeholder.com/150"
             };
             var createReturn = service.CreateItem(item);
             var createdId = createReturn.Max(i => i.Id);
